@@ -2,3 +2,9 @@ infrastructure/.terraform
 infrastructure/.terraform.lock.hcl
 infrastructure/terraform.tfstate
 infrastructure/terraform.tfstate
+src/ingestion/.env
+# Secrets / env files
+**/.env
+**/.env.*
+.env
+.env.*
