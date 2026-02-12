@@ -1,0 +1,705 @@
+{
+	"dag": {
+		"node-1770902154719": {
+			"database": "ecommerce_silver_db",
+			"table": "fact_sales_enriched",
+			"runtimeParameters": [],
+			"isCatalog": true,
+			"name": "Amazon S3",
+			"classification": "DataSource",
+			"type": "S3",
+			"inputs": [],
+			"generatedNodeName": "AmazonS3_node1770902154719",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "sale_id",
+						"fullPath": [
+							"sale_id"
+						],
+						"type": "long"
+					},
+					{
+						"key": "quantity",
+						"fullPath": [
+							"quantity"
+						],
+						"type": "long"
+					},
+					{
+						"key": "total_amount",
+						"fullPath": [
+							"total_amount"
+						],
+						"type": "double"
+					},
+					{
+						"key": "status",
+						"fullPath": [
+							"status"
+						],
+						"type": "string"
+					},
+					{
+						"key": "order_date",
+						"fullPath": [
+							"order_date"
+						],
+						"type": "long"
+					},
+					{
+						"key": "user_id",
+						"fullPath": [
+							"user_id"
+						],
+						"type": "long"
+					},
+					{
+						"key": "user_name",
+						"fullPath": [
+							"user_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "email",
+						"fullPath": [
+							"email"
+						],
+						"type": "string"
+					},
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "product_name",
+						"fullPath": [
+							"product_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "category",
+						"fullPath": [
+							"category"
+						],
+						"type": "string"
+					},
+					{
+						"key": "unit_price",
+						"fullPath": [
+							"unit_price"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902411499": {
+			"classification": "Transform",
+			"type": "Filter",
+			"name": "Filter Premium",
+			"inputs": [
+				"node-1770902154719"
+			],
+			"logicalOperator": "AND",
+			"filters": [
+				{
+					"operation": "GTE",
+					"negated": false,
+					"values": [
+						{
+							"type": "COLUMNEXTRACTED",
+							"value": "total_amount"
+						},
+						{
+							"type": "CONSTANT",
+							"value": 500
+						}
+					]
+				}
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Filter.97e966c8.svg",
+			"generatedNodeName": "FilterPremium_node1770902411499",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "user_name",
+						"fullPath": [
+							"user_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "unit_price",
+						"fullPath": [
+							"unit_price"
+						],
+						"type": "double"
+					},
+					{
+						"key": "product_name",
+						"fullPath": [
+							"product_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "total_amount",
+						"fullPath": [
+							"total_amount"
+						],
+						"type": "double"
+					},
+					{
+						"key": "category",
+						"fullPath": [
+							"category"
+						],
+						"type": "string"
+					},
+					{
+						"key": "sale_id",
+						"fullPath": [
+							"sale_id"
+						],
+						"type": "long"
+					},
+					{
+						"key": "quantity",
+						"fullPath": [
+							"quantity"
+						],
+						"type": "long"
+					},
+					{
+						"key": "status",
+						"fullPath": [
+							"status"
+						],
+						"type": "string"
+					},
+					{
+						"key": "email",
+						"fullPath": [
+							"email"
+						],
+						"type": "string"
+					},
+					{
+						"key": "order_date",
+						"fullPath": [
+							"order_date"
+						],
+						"type": "long"
+					},
+					{
+						"key": "user_id",
+						"fullPath": [
+							"user_id"
+						],
+						"type": "long"
+					}
+				]
+			]
+		},
+		"node-1770902425405": {
+			"classification": "Transform",
+			"type": "Filter",
+			"name": "Filter Standard",
+			"inputs": [
+				"node-1770902154719"
+			],
+			"logicalOperator": "AND",
+			"filters": [
+				{
+					"operation": "LT",
+					"negated": false,
+					"values": [
+						{
+							"type": "COLUMNEXTRACTED",
+							"value": "total_amount"
+						},
+						{
+							"type": "CONSTANT",
+							"value": 500
+						}
+					]
+				}
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Filter.97e966c8.svg",
+			"generatedNodeName": "FilterStandard_node1770902425405",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "user_name",
+						"fullPath": [
+							"user_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "unit_price",
+						"fullPath": [
+							"unit_price"
+						],
+						"type": "double"
+					},
+					{
+						"key": "product_name",
+						"fullPath": [
+							"product_name"
+						],
+						"type": "string"
+					},
+					{
+						"key": "total_amount",
+						"fullPath": [
+							"total_amount"
+						],
+						"type": "double"
+					},
+					{
+						"key": "category",
+						"fullPath": [
+							"category"
+						],
+						"type": "string"
+					},
+					{
+						"key": "sale_id",
+						"fullPath": [
+							"sale_id"
+						],
+						"type": "long"
+					},
+					{
+						"key": "quantity",
+						"fullPath": [
+							"quantity"
+						],
+						"type": "long"
+					},
+					{
+						"key": "status",
+						"fullPath": [
+							"status"
+						],
+						"type": "string"
+					},
+					{
+						"key": "email",
+						"fullPath": [
+							"email"
+						],
+						"type": "string"
+					},
+					{
+						"key": "order_date",
+						"fullPath": [
+							"order_date"
+						],
+						"type": "long"
+					},
+					{
+						"key": "user_id",
+						"fullPath": [
+							"user_id"
+						],
+						"type": "long"
+					}
+				]
+			]
+		},
+		"node-1770902488549": {
+			"classification": "Transform",
+			"type": "Aggregate",
+			"name": "Agg Premium",
+			"inputs": [
+				"node-1770902411499"
+			],
+			"groups": [
+				"city"
+			],
+			"aggs": [
+				{
+					"column": "total_amount",
+					"aggFunc": "sum"
+				}
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Aggregate.3f24ce06.svg",
+			"generatedNodeName": "AggPremium_node1770902488549",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "sum(total_amount)",
+						"fullPath": [
+							"sum(total_amount)"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902585673": {
+			"classification": "Transform",
+			"type": "Aggregate",
+			"name": "Agg Standard",
+			"inputs": [
+				"node-1770902425405"
+			],
+			"groups": [
+				"city"
+			],
+			"aggs": [
+				{
+					"column": "total_amount",
+					"aggFunc": "sum"
+				}
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Aggregate.3f24ce06.svg",
+			"generatedNodeName": "AggStandard_node1770902585673",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "sum(total_amount)",
+						"fullPath": [
+							"sum(total_amount)"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902639041": {
+			"classification": "Transform",
+			"type": "RenameField",
+			"name": "Rename Field",
+			"inputs": [
+				"node-1770902488549"
+			],
+			"sourcePath": "sum(total_amount)",
+			"targetPath": "premium_revenue",
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Rename-fields.c1e54441.svg",
+			"generatedNodeName": "RenameField_node1770902639041",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "premium_revenue",
+						"fullPath": [
+							"premium_revenue"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902657889": {
+			"classification": "Transform",
+			"type": "RenameField",
+			"name": "Rename Field",
+			"inputs": [
+				"node-1770902585673"
+			],
+			"sourcePath": "sum(total_amount)",
+			"targetPath": "standard_revenue",
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Rename-fields.c1e54441.svg",
+			"generatedNodeName": "RenameField_node1770902657889",
+			"codeGenVersion": 2
+		},
+		"node-1770902693925": {
+			"classification": "Transform",
+			"type": "Join",
+			"name": "Join Streams",
+			"inputs": [
+				"node-1770902639041",
+				"node-1770902657889"
+			],
+			"joinType": "equijoin",
+			"columns": [
+				{
+					"from": "node-1770902639041",
+					"keys": [
+						"city"
+					]
+				},
+				{
+					"from": "node-1770902657889",
+					"keys": [
+						"city"
+					]
+				}
+			],
+			"columnConditions": [
+				"="
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Join.493120c2.svg",
+			"generatedNodeName": "JoinStreams_node1770902693925",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "standard_revenue",
+						"fullPath": [
+							"standard_revenue"
+						],
+						"type": "double"
+					},
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": ".city",
+						"fullPath": [
+							".city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "premium_revenue",
+						"fullPath": [
+							"premium_revenue"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902798217": {
+			"classification": "Transform",
+			"type": "DynamicTransform",
+			"name": "Join Streams",
+			"inputs": [
+				"node-1770902693925"
+			],
+			"transformName": "gs_derived",
+			"path": "s3://aws-glue-studio-transforms-234881715811-prod-ap-southeast-2/gs_derived.py",
+			"functionName": "gs_derived",
+			"version": "1.0.0",
+			"parameters": [
+				{
+					"name": "colName",
+					"displayName": "Name of the derived column",
+					"type": "str",
+					"description": "Name to use for the new column or replace an existing one.",
+					"index": 0,
+					"value": "Calc Ratios"
+				},
+				{
+					"name": "expr",
+					"displayName": "SQL Expression",
+					"type": "str",
+					"description": "A SQL expression that defines the column, which can be derived from other existing columns and use operators to modify or combine them. For instance, to derive a percentage from the columns \"success\" and \"count\", you can enter: \"success * 100 / count\".",
+					"index": 1,
+					"value": "(premium_revenue / (premium_revenue + standard_revenue)) * 100"
+				}
+			],
+			"label": "Derived Column",
+			"displayName": "Derived Column",
+			"description": "Produce a column using a SQL expression or formula using other fields and constants",
+			"lastModified": "2025-05-05T14:50:51.000Z",
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/generic-transform.e5360da7.svg",
+			"generatedNodeName": "JoinStreams_node1770902798217",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "standard_revenue",
+						"fullPath": [
+							"standard_revenue"
+						],
+						"type": "double"
+					},
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": ".city",
+						"fullPath": [
+							".city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "premium_revenue",
+						"fullPath": [
+							"premium_revenue"
+						],
+						"type": "double"
+					},
+					{
+						"key": "Calc Ratios",
+						"fullPath": [
+							"Calc Ratios"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770902984987": {
+			"classification": "Transform",
+			"type": "SelectFields",
+			"name": "Select Fields",
+			"inputs": [
+				"node-1770902798217"
+			],
+			"paths": [
+				"city",
+				"standard_revenue",
+				"premium_revenue",
+				"Calc Ratios"
+			],
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/Select-fields.9f9e0342.svg",
+			"generatedNodeName": "SelectFields_node1770902984987",
+			"codeGenVersion": 2,
+			"outputSchemas": [
+				[
+					{
+						"key": "city",
+						"fullPath": [
+							"city"
+						],
+						"type": "string"
+					},
+					{
+						"key": "standard_revenue",
+						"fullPath": [
+							"standard_revenue"
+						],
+						"type": "double"
+					},
+					{
+						"key": "premium_revenue",
+						"fullPath": [
+							"premium_revenue"
+						],
+						"type": "double"
+					},
+					{
+						"key": "Calc Ratios",
+						"fullPath": [
+							"Calc Ratios"
+						],
+						"type": "double"
+					}
+				]
+			]
+		},
+		"node-1770903097419": {
+			"classification": "DataSink",
+			"type": "S3",
+			"name": "Amazon S3",
+			"inputs": [
+				"node-1770902984987"
+			],
+			"format": "glueparquet",
+			"compression": "snappy",
+			"numberTargetPartitions": "0",
+			"path": "s3://event-driven-lakehouse-curated-b8ad22ee/city_performance_matrix/",
+			"partitionKeys": [],
+			"updateCatalogOptions": "schemaAndPartitions",
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": true,
+				"updateBehavior": "UPDATE_IN_DATABASE",
+				"database": "database_tuts",
+				"table": "gold_city_matrix"
+			},
+			"autoDataQuality": {
+				"isEnabled": true,
+				"evaluationContext": "EvaluateDataQuality_node1770902140632"
+			},
+			"additionalOptions": {},
+			"iconUrl": "https://a.b.cdn.console.awsstatic.com/a/v1/LXOAVCVUTUE4S4I5ASJ4I2IXSFVF7LUDH6LBJY2YBNIFL7TBQURQ/static/media/s3.2a166713.svg",
+			"generatedNodeName": "AmazonS3_node1770903097419",
+			"codeGenVersion": 2
+		}
+	},
+	"jobConfig": {
+		"command": "glueetl",
+		"description": "",
+		"role": "arn:aws:iam::277179435874:role/CrawlerAcesss",
+		"scriptName": "city_performance.py",
+		"version": "5.0",
+		"language": "python-3",
+		"scriptLocation": "s3://aws-glue-assets-277179435874-ap-southeast-2/scripts/",
+		"temporaryDirectory": "s3://aws-glue-assets-277179435874-ap-southeast-2/temporary/",
+		"timeout": 480,
+		"maxConcurrentRuns": 1,
+		"workerType": "G.1X",
+		"numberOfWorkers": 10,
+		"maxRetries": 0,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"security": "none",
+		"bookmark": "job-bookmark-disable",
+		"logging": true,
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"sparkPath": "s3://aws-glue-assets-277179435874-ap-southeast-2/sparkHistoryLogs/",
+		"serverEncryption": false,
+		"glueHiveMetastore": true,
+		"etlAutoScaling": false,
+		"etlAutoTuning": true,
+		"jobParameters": [],
+		"tags": [],
+		"connectionsList": [],
+		"jobMode": "VISUAL_MODE",
+		"name": "city_performance",
+		"pythonPath": "s3://aws-glue-studio-transforms-234881715811-prod-ap-southeast-2/gs_common.py,s3://aws-glue-studio-transforms-234881715811-prod-ap-southeast-2/gs_derived.py"
+	},
+	"hasBeenSaved": false
+}
